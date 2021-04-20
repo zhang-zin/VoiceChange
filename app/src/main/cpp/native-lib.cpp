@@ -144,8 +144,20 @@ Java_com_zj_voicechange_MainActivity_voiceChange(JNIEnv *env, jobject thiz, jint
     env->CallVoidMethod(thiz, endMethodId, content);
 }
 
-void dynamicMethod01() {
+void dynamicMethod01(JNIEnv *env, jobject instance) {
     LOGE("动态注册方法：dynamicMethod01")
+
+    jclass pJclass = env->GetObjectClass(instance);
+    jmethodID textExceptionId = env->GetMethodID(pJclass, "textException", "()V");
+    env->CallVoidMethod(instance, textExceptionId);
+    jthrowable throwable = env->ExceptionOccurred(); // 判断是否发生异常
+    if (throwable) {
+        //发生异常，需要主动处理
+        env->ExceptionDescribe(); // 打印异常信息
+        env->ExceptionClear(); // 清除异常信息
+        jclass aClass = env->FindClass("java/lang/IllegalArgumentException");
+        env->ThrowNew(aClass, "JNI 中发生了一个异常"); //返回一个新的异常到java
+    }
 }
 
 int dynamicMethod02(JNIEnv *env, jobject jobject, jstring value) {

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import java.lang.NullPointerException
 
 class JniTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +25,15 @@ class JniTestActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 测试抛出异常
+     *
+     * @throws NullPointerException
+     */
+    @Throws(NullPointerException::class)
+    private fun textException(){
+        throw NullPointerException("JniTestActivity testException NullPointerException")
+    }
 
     fun dynamic01(view: View) {
         dynamicMethod01()
