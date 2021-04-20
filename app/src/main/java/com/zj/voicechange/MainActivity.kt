@@ -1,6 +1,5 @@
 package com.zj.voicechange
 
-import android.R.attr
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -52,8 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         private const val MODE_KONGLING = 5 //
 
-        init {
-            System.loadLibrary("native-lib")
-        }
     }
+
+
 }
